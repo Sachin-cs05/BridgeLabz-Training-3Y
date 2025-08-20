@@ -9,7 +9,7 @@ public class p10 {
         // Take input from user
         System.out.print("Enter a number: ");
         long number = sc.nextLong();
-
+        
         // Convert number to string for digit processing
         String numStr = Long.toString(Math.abs(number)); // Handle negative numbers also
         int length = numStr.length();
