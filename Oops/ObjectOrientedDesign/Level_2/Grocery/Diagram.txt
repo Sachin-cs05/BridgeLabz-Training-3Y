@@ -1,0 +1,101 @@
+1. Structure Diagram
+
++-------------------+
+|     Customer      |
++-------------------+
+| - name: String    |
+| - products: List  |
++-------------------+
+| + getName()       |
+| + getProducts()   |
+| + addProduct()    |
++-------------------+
+
++-------------------+
+|      Product      |
++-------------------+
+| - name: String    |
+| - quantity: double|
+| - pricePerUnit:double|
++-------------------+
+| + getName()       |
+| + getQuantity()   |
+| + getPricePerUnit()|
+| + getTotalPrice() |
++-------------------+
+
++-------------------+
+|   BillGenerator   |
++-------------------+
+| + generateBill(c) |
+| + printBill(c)    |
++-------------------+
+
++-------------------+
+|       Main        |
++-------------------+
+| + main()          |
++-------------------+
+
+Relationships:
+Customer "1" --- "many" Product
+BillGenerator --> Customer
+BillGenerator --> Product
+Main --> Customer, Product, BillGenerator
+
+
+2. Object Diagram
+
+Customer (alice)
++ name = "Alice"
++ products = [Apples, Milk, Bread]
+
+Product (Apples)
++ name = "Apples"
++ quantity = 2
++ pricePerUnit = 3
++ totalPrice = 6
+
+Product (Milk)
++ name = "Milk"
++ quantity = 1
++ pricePerUnit = 2
++ totalPrice = 2
+
+Product (Bread)
++ name = "Bread"
++ quantity = 1
++ pricePerUnit = 2.5
++ totalPrice = 2.5
+
+BillGenerator (billGen)
++ used to calculate and print bill
+
+
+3. Sequence Diagram
+
+Main          Customer         Product           BillGenerator
+ |                |                |                     |
+ | new Customer() |                |                     |
+ |--------------->|                |                     |
+ |                | addProduct()   |                     |
+ |                |--------------->|                     |
+ |                |                |                     |
+ |                | addProduct()   |                     |
+ |                |--------------->|                     |
+ |                |                |                     |
+ |                | addProduct()   |                     |
+ |                |--------------->|                     |
+ |                |                |                     |
+ | new BillGenerator()             |                     |
+ |----------------------------------------------------->|
+ | printBill(customer)                                  |
+ |----------------------------------------------------->|
+ |                |                | getTotalPrice()    |
+ |                |                |<-------------------|
+ |                |                | getTotalPrice()    |
+ |                |                |<-------------------|
+ |                |                | getTotalPrice()    |
+ |                |                |<-------------------|
+ |                |                |                     |
+ |   ---> prints bill to console <---                   |
