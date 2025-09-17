@@ -1,0 +1,89 @@
+1. Class (Structure) Diagram
+
++-------------------+
+|     Student       |
++-------------------+
+| - name: String    |
+| - subjects: List  |
++-------------------+
+| + getName()       |
+| + getSubjects()   |
+| + addSubject()    |
++-------------------+
+
++-------------------+
+|     Subject       |
++-------------------+
+| - name: String    |
+| - marks: int      |
++-------------------+
+| + getName()       |
+| + getMarks()      |
++-------------------+
+
++-------------------+
+|  GradeCalculator  |
++-------------------+
+| + calculateGrade(s:Student): String |
++-------------------+
+
++-------------------+
+|       Main        |
++-------------------+
+| + main()          |
++-------------------+
+
+Relationships:
+Student "1" --- "many" Subject
+GradeCalculator --> Student, Subject
+Main --> Student, Subject, GradeCalculator
+
+
+2. Object Diagram
+
+Student (john)
++ name = "John"
++ subjects = [Maths, Science, English]
+
+Subject (Maths)
++ name = "Maths"
++ marks = 90
+
+Subject (Science)
++ name = "Science"
++ marks = 85
+
+Subject (English)
++ name = "English"
++ marks = 78
+
+GradeCalculator (calc)
++ calculates avg = (90+85+78)/3 = 84.33
++ grade = "B"
+
+
+3. Sequence Diagram
+
+Main          Student           Subject           GradeCalculator
+ |                |                |                     |
+ | new Student()  |                |                     |
+ |--------------->|                |                     |
+ | addSubject()   |--------------->|                     |
+ | addSubject()   |--------------->|                     |
+ | addSubject()   |--------------->|                     |
+ | new GradeCalculator()                               |
+ |----------------------------------------------------->|
+ | calculateGrade(student)                             |
+ |----------------------------------------------------->|
+ |                | getSubjects()                      |
+ |                |----------------------------------->|
+ |                |                | getMarks()        |
+ |                |                |<------------------|
+ |                |                | getMarks()        |
+ |                |                |<------------------|
+ |                |                | getMarks()        |
+ |                |                |<------------------|
+ |                |                |                     |
+ |   ---> returns "B" <---                               |
+ |                |                |                     |
+ | ---> prints "Student: John, Grade: B" <---           |
